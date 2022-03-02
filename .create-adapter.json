@@ -1,0 +1,22 @@
+{
+    "cli": true,
+    "target": "directory",
+    "adapterName": "vis-knx-widget",
+    "title": "KNX Vis Widget",
+    "description": "KNX optimized Vis widgets",
+    "expert": "no",
+    "features": [
+        "vis"
+    ],
+    "type": "visualization-widgets",
+    "releaseScript": "yes",
+    "authorName": "StefanPreuss",
+    "authorGithub": "Stefan592",
+    "authorEmail": "stefan.preuss@mail.de",
+    "gitRemoteProtocol": "HTTPS",
+    "gitCommit": "no",
+    "defaultBranch": "main",
+    "license": "MIT License",
+    "dependabot": "no",
+    "creatorVersion": "2.1.0"
+}

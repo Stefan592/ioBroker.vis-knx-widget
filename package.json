@@ -1,0 +1,44 @@
+{
+  "name": "iobroker.vis-knx-widget",
+  "version": "0.0.1",
+  "description": "KNX optimized Vis widgets",
+  "author": {
+    "name": "StefanPreuss",
+    "email": "stefan.preuss@mail.de"
+  },
+  "homepage": "https://github.com/Stefan592/ioBroker.vis-knx-widget",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "template",
+    "Smart Home",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Stefan592/ioBroker.vis-knx-widget"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@alcalzone/release-script": "^2.2.2",
+    "@iobroker/adapter-dev": "^1.0.0",
+    "@iobroker/testing": "^2.5.4"
+  },
+  "main": "widgets/vis-knx-widget.html",
+  "files": [
+    "widgets/",
+    "www/",
+    "io-package.json",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test:package": "mocha test/package --exit",
+    "test": "npm run test:package",
+    "translate": "translate-adapter",
+    "release": "release-script"
+  },
+  "bugs": {
+    "url": "https://github.com/Stefan592/ioBroker.vis-knx-widget/issues"
+  },
+  "readmeFilename": "README.md"
+}

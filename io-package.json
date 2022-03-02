@@ -1,0 +1,82 @@
+{
+    "common": {
+        "name": "vis-knx-widget",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "KNX Vis Widget",
+        "titleLang": {
+            "en": "KNX Vis Widget",
+            "de": "KNX Vis-Widget",
+            "ru": "Виджет KNX Vis",
+            "pt": "Widget KNX Vis",
+            "nl": "KNX Vis-widget",
+            "fr": "Widget visuel KNX",
+            "it": "Widget KNX Vis",
+            "es": "Widget Vis KNX",
+            "pl": "Widżet KNX Vis",
+            "zh-cn": "KNX 可视小部件"
+        },
+        "desc": {
+            "en": "KNX optimized Vis widgets",
+            "de": "KNX-optimierte Vis-Widgets",
+            "ru": "Виджеты Vis, оптимизированные для KNX",
+            "pt": "Widgets Vis otimizados para KNX",
+            "nl": "KNX geoptimaliseerde Vis-widgets",
+            "fr": "Widgets Vis optimisés pour KNX",
+            "it": "Widget Vis ottimizzati per KNX",
+            "es": "Widgets Vis optimizados para KNX",
+            "pl": "Widgety Vis zoptymalizowane pod kątem KNX",
+            "zh-cn": "KNX 优化的 Vis 小部件"
+        },
+        "authors": [
+            "StefanPreuss <stefan.preuss@mail.de>"
+        ],
+        "keywords": [
+            "ioBroker",
+            "template",
+            "Smart Home",
+            "home automation"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "vis-knx-widget.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/Stefan592/ioBroker.vis-knx-widget/main/admin/vis-knx-widget.png",
+        "readme": "https://github.com/Stefan592/ioBroker.vis-knx-widget/blob/main/README.md",
+        "loglevel": "info",
+        "restartAdapters": [
+            "vis"
+        ],
+        "localLinks": {
+            "_default": "%web_protocol%://%ip%:%web_port%/vis/edit.html"
+        },
+        "onlyWWW": true,
+        "noConfig": true,
+        "singleton": true,
+        "type": "visualization-widgets",
+        "mode": "once",
+        "dependencies": [
+            "vis"
+        ]
+    },
+    "native": {
+        "option1": true,
+        "option2": "42"
+    },
+    "objects": [],
+    "instanceObjects": []
+}
