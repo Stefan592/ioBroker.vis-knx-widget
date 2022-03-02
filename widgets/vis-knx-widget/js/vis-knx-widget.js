@@ -46,33 +46,28 @@ vis.binds["vis-knx-widget"] = {
             }, 100);
         }
 
-        vis.binds["vis-knx-widget"].updateText(data)
+        const oid = data.oid ? data.oid : "lala";
+
+        vis.binds["vis-knx-widget"].updateText($div.find('knx-shutter'), vis.states[oid + '.val']);
 
         // subscribe on updates of value
-        function onChange(e, newVal, oldVal) {
-            $div.find('.template-value').html(newVal);
-
-            vis.binds["vis-knx-widget"].updateText(newVal)
-        }
-        if (data.oid) {
-            vis.states.bind(data.oid + '.val', onChange);
-            //remember bound state that vis can release if didnt needed
-            $div.data('bound', [data.oid + '.val']);
-            //remember onchange handler to release bound states
-            $div.data('bindHandler', onChange);
+        if (oid) {
+            vis.states.bind(oid + '.val', function (e, newVal, oldVal) {
+                vis.binds["vis-knx-widget"].updateText($div.find('knx-shutter'), newVal);
+            });
         }
     },
-    updateText: function(newValue) {
+    updateText: function(target, newValue) {
+
+        target.empty();
+
+        console.log("update Text function")
 
         var text = '';
-        text += 'OID: ' + newValue.oid + '</div><br>';
-        text += 'OID value: <span class="vis-knx-widget-value">' + vis.states[newValue.oid + '.val'] + '</span><br>';
-        text += 'Color: <span style="color: ' + newValue.myColor + '">' + newValue.myColor + '</span><br>';
-        text += 'extraAttr: ' + newValue.extraAttr + '<br>';
-        text += 'Browser instance: ' + vis.instance + '<br>';
-        text += 'htmlText: <textarea readonly style="width:100%">' + (newValue.htmlText || '') + '</textarea><br>';
+        text += 'OID: ' + newValue.oid + '</div><br>'
 
-        $('#' + widgetID).html(text);
+        target.append(text);
+        rendered++;
     },
 
 
