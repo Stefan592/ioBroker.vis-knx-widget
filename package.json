@@ -27,7 +27,6 @@
   "main": "widgets/vis-knx-widget.html",
   "files": [
     "widgets/",
-    "www/",
     "io-package.json",
     "LICENSE",
     "admin/"
