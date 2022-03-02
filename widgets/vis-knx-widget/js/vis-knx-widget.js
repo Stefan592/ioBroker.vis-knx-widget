@@ -46,19 +46,13 @@ vis.binds["vis-knx-widget"] = {
             }, 100);
         }
 
-        var text = '';
-        text += 'OID: ' + data.oid + '</div><br>';
-        text += 'OID value: <span class="vis-knx-widget-value">' + vis.states[data.oid + '.val'] + '</span><br>';
-        text += 'Color: <span style="color: ' + data.myColor + '">' + data.myColor + '</span><br>';
-        text += 'extraAttr: ' + data.extraAttr + '<br>';
-        text += 'Browser instance: ' + vis.instance + '<br>';
-        text += 'htmlText: <textarea readonly style="width:100%">' + (data.htmlText || '') + '</textarea><br>';
-
-        $('#' + widgetID).html(text);
+        vis.binds["vis-knx-widget"].updateText(data)
 
         // subscribe on updates of value
         function onChange(e, newVal, oldVal) {
             $div.find('.template-value').html(newVal);
+
+            vis.binds["vis-knx-widget"].updateText(newVal)
         }
         if (data.oid) {
             vis.states.bind(data.oid + '.val', onChange);
@@ -67,7 +61,21 @@ vis.binds["vis-knx-widget"] = {
             //remember onchange handler to release bound states
             $div.data('bindHandler', onChange);
         }
-    }
+    },
+    updateText: function(newValue) {
+
+        var text = '';
+        text += 'OID: ' + newValue.oid + '</div><br>';
+        text += 'OID value: <span class="vis-knx-widget-value">' + vis.states[newValue.oid + '.val'] + '</span><br>';
+        text += 'Color: <span style="color: ' + newValue.myColor + '">' + newValue.myColor + '</span><br>';
+        text += 'extraAttr: ' + newValue.extraAttr + '<br>';
+        text += 'Browser instance: ' + vis.instance + '<br>';
+        text += 'htmlText: <textarea readonly style="width:100%">' + (newValue.htmlText || '') + '</textarea><br>';
+
+        $('#' + widgetID).html(text);
+    },
+
+
 };
 
 vis.binds["vis-knx-widget"].showVersion();
