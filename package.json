@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "KNX optimized Vis widgets",
   "author": {
-    "name": "StefanPreuss",
+    "name": "Stefan Preuß",
     "email": "stefan.preuss@mail.de"
   },
   "homepage": "https://github.com/Stefan592/ioBroker.vis-knx-widget",
