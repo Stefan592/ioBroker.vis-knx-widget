@@ -29,7 +29,8 @@
     "widgets/",
     "www/",
     "io-package.json",
-    "LICENSE"
+    "LICENSE",
+    "admin/"
   ],
   "scripts": {
     "test:package": "mocha test/package --exit",
