@@ -2,3 +2,54 @@
 .vis-knx-widget-class {
     font-style: italic;
 }
+
+.container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: #474747;
+    border-radius: 20px;
+}
+
+.headerContainer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 33%;
+    border-radius: 20px;
+}
+
+.shutter {
+    width: 20%;
+    height: 100%;
+    float: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-width: 3px;
+    border-color: #000000;
+}
+
+.text {
+    float: left;
+    width: 60%;
+    height: 100%;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+
+}
+.blade {
+    float: left;
+    width: 19.999%;
+    height: 100%;
+}
+
+img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }

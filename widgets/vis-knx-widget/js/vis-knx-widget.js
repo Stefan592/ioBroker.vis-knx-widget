@@ -12,19 +12,20 @@ $.extend(
     true,
     systemDictionary,
     {
-        // Add your translations here, e.g.:
-        // "size": {
-        // 	"en": "Size",
-        // 	"de": "Größe",
-        // 	"ru": "Размер",
-        // 	"pt": "Tamanho",
-        // 	"nl": "Grootte",
-        // 	"fr": "Taille",
-        // 	"it": "Dimensione",
-        // 	"es": "Talla",
-        // 	"pl": "Rozmiar",
-        // 	"zh-cn": "尺寸"
-        // }
+
+        "size": {
+         	"en": "Size",
+         	"de": "Größe",
+        },
+        "shutterStatus": {
+            "en": "Shutter status",
+            "de": "Jalousie status",
+        },
+        "bladeStatus": {
+            "en": "Blade status",
+            "de": "Lamelle status",
+        },
+
     }
 );
 
@@ -46,31 +47,94 @@ vis.binds["vis-knx-widget"] = {
             }, 100);
         }
 
-        const oid = data.oid ? data.oid : "lala";
+        const shutterStat = data.shutterStatus;
+        const bladeStat = data.bladeStatus;
+        const name = data.name ? data.name : "Shutter";
 
-        vis.binds["vis-knx-widget"].updateText($div.find('knx-shutter'), vis.states[oid + '.val']);
+        console.log("KNX status: " + shutterStat);
+        console.log("KNX data.status: " + data.shutterStatus);
 
-        // subscribe on updates of value
-        if (oid) {
-            vis.states.bind(oid + '.val', function (e, newVal, oldVal) {
-                vis.binds["vis-knx-widget"].updateText($div.find('knx-shutter'), newVal);
-            });
+        //vis.binds["vis-knx-widget"].buildContainter($div.find('.container'), name, vis.states[shutterStat + '.val'], vis.states[bladeStat + '.val']);
+        $('#' + widgetID).html("shutterStat " + shutterStat);
+
+        function onChangeIst(e, newVal, oldVal) {
+            console.log("KNX shutterStatus onChange, value: " + newVal);
+            //vis.binds["vis-knx-widget"].buildContainter($div.find('.container'), name, newVal, vis.states[bladeStat + '.val']);
         }
-    },
-    updateText: function(target, newValue) {
 
+        if (shutterStat) {
+            vis.states.bind(shutterStat+ '.val', onChangeIst);
+            //remember bound state that vis can release if didnt needed
+            $div.data('bound', [shutterStat + '.val']);
+            //remember onchange handler to release bound states
+            $div.data('bindHandler', onChangeIst);
+        }
+
+
+        //onChangeIst(null, vis.states[shutterStat + '.val'], 0);
+    },
+    buildContainter: function(target, name, statusShutter, statusBlade) {
+
+        console.log('KNX shutter id: ' + statusShutter)
+
+        if(!statusShutter){
+            statusShutter = 50;
+        }
+
+        if(!statusBlade){
+            statusBlade = 50;
+        }
+    
         target.empty();
+        let newItem = target;
 
-        console.log("update Text function")
+        let header = $('<div class="headerContainer"></div>');
 
-        var text = '';
-        text += 'OID: ' + newValue.oid + '</div><br>'
+        // Shutter icon
+        $('<div class="shutter" style="background-image: url(\'' + this.getIcon(statusShutter, 1) +'\');"></div>').appendTo(header);
 
-        target.append(text);
-        rendered++;
+        // Name
+        $('<div class="text"></div>').html(statusShutter).appendTo(header);
+
+        // Blade icon
+        if(statusBlade >= 0){
+            $('<div class="blade" style="background-image: url(\'' + this.getIcon(statusBlade, 2) +'\');"></div>').appendTo(header)
+        }
+               
+        header.appendTo(newItem);
+
+
+
+        target.append(newItem);
+
+        //var z = document.getElementsByClassName('headerContainer');
+        //console.dir(z);
+
+
     },
+    getIcon: function(status, name){
 
+        if (name == 1){
+            name = "shutter";
+        } else if (name == 2){
+            name = "blade_arc"
+        } else {
+            name = "shutter";
+        }
 
+        let path = "widgets/vis-knx-widget/img/fts_" + name + "_00.png";
+        if (typeof(status) === 'number'){
+            let value = Math.round(status / 10) * 10;
+            value = value.toString();
+    
+            if (value.length < 2) value = "0" + value;
+    
+            path = "widgets/vis-knx-widget/img/fts_" + name + "_" + value + ".png";
+        } 
+
+        return path;
+
+    }
 };
 
 vis.binds["vis-knx-widget"].showVersion();
