@@ -13,9 +13,9 @@ $.extend(
     systemDictionary,
     {
 
-        "size": {
-         	"en": "Size",
-         	"de": "Größe",
+        "name": {
+         	"en": "Name",
+         	"de": "Name",
         },
         "shutterStatus": {
             "en": "Shutter status",
@@ -30,12 +30,12 @@ $.extend(
 );
 
 // this code can be placed directly in vis-knx-widget.html
-vis.binds["vis-knx-widget"] = {
-    version: "0.0.1",
+vis.binds['vis-knx-shutter'] = {
+    version: "0.0.2",
     showVersion: function () {
-        if (vis.binds["vis-knx-widget"].version) {
-            console.log('Version vis-knx-widget: ' + vis.binds["vis-knx-widget"].version);
-            vis.binds["vis-knx-widget"].version = null;
+        if (vis.binds['vis-knx-shutter'].version) {
+            console.log('Version vis-knx-widget: ' + vis.binds['vis-knx-shutter'].version);
+            vis.binds['vis-knx-shutter'].version = null;
         }
     },
     createWidget: function (widgetID, view, data, style) {
@@ -43,7 +43,7 @@ vis.binds["vis-knx-widget"] = {
         // if nothing found => wait
         if (!$div.length) {
             return setTimeout(function () {
-                vis.binds["vis-knx-widget"].createWidget(widgetID, view, data, style);
+                vis.binds['vis-knx-shutter'].createWidget(widgetID, view, data, style);
             }, 100);
         }
 
@@ -51,25 +51,26 @@ vis.binds["vis-knx-widget"] = {
         const bladeStat = data.bladeStatus;
         const name = data.name ? data.name : "Shutter";
 
-        console.log("KNX status: " + shutterStat);
-        console.log("KNX data.status: " + data.shutterStatus);
-
-        //vis.binds["vis-knx-widget"].buildContainter($div.find('.container'), name, vis.states[shutterStat + '.val'], vis.states[bladeStat + '.val']);
+        //vis.bindsvis-knx-shu['vis-knx-shutter']tter.buildContainter($div.find('.container'), name, vis.states[shutterStat + '.val'], vis.states[bladeStat + '.val']);
         $('#' + widgetID).html("shutterStat " + shutterStat);
 
-        function onChangeIst(e, newVal, oldVal) {
+        function onChange(e, newVal, oldVal) {
             console.log("KNX shutterStatus onChange, value: " + newVal);
-            //vis.binds["vis-knx-widget"].buildContainter($div.find('.container'), name, newVal, vis.states[bladeStat + '.val']);
+            //vis.bindsvis-knx-shu['vis-knx-shutter']tter.buildContainter($div.find('.container'), name, newVal, vis.states[bladeStat + '.val']);
         }
 
-        if (shutterStat) {
-            vis.states.bind(shutterStat+ '.val', onChangeIst);
-            //remember bound state that vis can release if didnt needed
-            $div.data('bound', [shutterStat + '.val']);
-            //remember onchange handler to release bound states
-            $div.data('bindHandler', onChangeIst);
-        }
+        let test = vis.states[data.shutterStatus + '.val']
+        console.dir(test)
 
+        if (data.shutterStatus) {
+            console.log("Bind begin!")
+            console.log(vis.states[data.shutterStatus + '.val'])
+            
+            vis.states.bind(data.shutterStatus + '.val', onChange);
+            //$div.data('bound', [data.shutterStatus + '.val']);
+            //$div.data('bindHandler', onChange);
+            console.log("Bind end!")
+        }
 
         //onChangeIst(null, vis.states[shutterStat + '.val'], 0);
     },
@@ -137,4 +138,4 @@ vis.binds["vis-knx-widget"] = {
     }
 };
 
-vis.binds["vis-knx-widget"].showVersion();
+vis.binds['vis-knx-shutter'].showVersion();
